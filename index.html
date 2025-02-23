@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enneagram Character Profile Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      background-color: #f7f7f7;
+      color: #333;
+      display: flex;
+      justify-content: center;
+    }
+
+    h1,
+    h2 {
+      color: #444;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .profile-output {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 1200px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .profile-item {
+      margin-bottom: 10px;
+    }
+
+    .profile-item span {
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    .profile-item p {
+      margin: 5px 0;
+    }
+
+    .profile-item ul {
+      margin: 10px 0;
+    }
+
+    .profile-item ul li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>Random Enneagram Character Profile</h1>
+
+    <button type="button" onclick="generateProfile()">Generate Character Profile</button>
+
+    <h2>Generated Character Profile</h2>
+    <div id="profileOutput" class="profile-output"></div>
+  </div>
+
+  <script>
+    function generateProfile() {
+      const names = [
+        "Alex", "Jordan", "Taylor", "Morgan", "Casey", "Pat", "Reese", "Blake", "Cameron", "Rowan",
+        "Max", "Sam", "Dakota", "Kai", "Riley", "Carter", "Harper", "Emery", "Avery", "Quinn"
+      ];
+
+      const roles = [
+        "Artist", "Engineer", "Leader", "Outsider", "Scholar", "Soldier", "Philosopher", "Explorer",
+        "Healer", "Teacher", "Inventor", "Adventurer", "Rebel", "Diplomat", "Guardian", "Strategist",
+        "Caretaker", "Mentor", "Visionary", "Activist"
+      ];
+
+      const types = [
+        "Type 1", "Type 2", "Type 3", "Type 4", "Type 5", "Type 6", "Type 7", "Type 8", "Type 9"
+      ];
+
+      const wings = [
+        "w1", "w2", "w3", "w4", "w5", "w6", "w7", "w8", "w9"
+      ];
+
+      const desires = {
+        "1": { "w9": "to be at peace", "w2": "to be good and right" },
+        "2": { "w1": "to be loved", "w3": "to be appreciated" },
+        "3": { "w2": "to be admired", "w4": "to be unique" },
+        "4": { "w3": "to be unique", "w5": "to understand themselves" },
+        "5": { "w4": "to understand the world", "w6": "to feel secure" },
+        "6": { "w5": "to feel secure", "w7": "to be free" },
+        "7": { "w6": "to avoid pain", "w8": "to be fulfilled" },
+        "8": { "w7": "to be strong", "w9": "to be in control" },
+        "9": { "w8": "to be at peace", "w1": "to be accepted" }
+      };
+
+
+      const fears = {
+        "1": { "w9": "chaos", "w2": "being flawed" },
+        "2": { "w1": "being unworthy of love", "w3": "being abandoned" },
+        "3": { "w2": "failure", "w4": "being seen as a fraud" },
+        "4": { "w3": "being ordinary", "w5": "being misunderstood" },
+        "5": { "w4": "being incapable", "w6": "being overwhelmed" },
+        "6": { "w5": "being abandoned", "w7": "being trapped" },
+        "7": { "w6": "being trapped in pain", "w8": "being restricted" },
+        "8": { "w7": "being weak", "w9": "being controlled" },
+        "9": { "w8": "conflict", "w1": "being criticized" }
+      };
+
+
+      const flaws = [
+        "perfectionism", "people-pleasing", "ambition", "self-absorption", "detachment", "anxiety",
+        "impatience", "distrust", "overthinking", "passivity"
+      ];
+
+      const goals = [
+        "achieve success", "find validation", "understand the world", "create meaning", "gain independence",
+        "feel secure", "find love", "discover purpose", "leave a legacy", "help others"
+      ];
+
+      const growths = {
+        "1": [
+          "learning to embrace imperfection",
+          "finding peace in the present moment",
+          "developing self-compassion"
+        ],
+        "2": [
+          "establishing healthy boundaries",
+          "recognizing their own needs",
+          "finding authentic self-worth"
+        ],
+        "3": [
+          "connecting with authentic feelings",
+          "valuing being over doing",
+          "developing genuine relationships"
+        ],
+        "4": [
+          "finding beauty in ordinary moments",
+          "developing emotional balance",
+          "building consistent self-esteem"
+        ],
+        "5": [
+          "engaging with life directly",
+          "connecting with emotions",
+          "sharing knowledge with others"
+        ],
+        "6": [
+          "developing inner guidance",
+          "trusting themselves",
+          "finding courage in uncertainty"
+        ],
+        "7": [
+          "embracing difficult emotions",
+          "finding depth in commitment",
+          "developing focus and patience"
+        ],
+        "8": [
+          "embracing vulnerability",
+          "developing gentle strength",
+          "protecting without controlling"
+        ],
+        "9": [
+          "claiming personal power",
+          "expressing honest opinions",
+          "taking decisive action"
+        ]
+      };
+
+      const turningPoints = {
+        "1": [
+          "making a meaningful mistake that leads to growth",
+          "experiencing the beauty of imperfection",
+          "finding peace in chaos"
+        ],
+        "2": [
+          "reaching emotional burnout",
+          "having their help rejected",
+          "discovering self-care"
+        ],
+        "3": [
+          "failing publicly",
+          "achieving a goal but feeling empty",
+          "being valued for authenticity"
+        ],
+        "4": [
+          "finding extraordinary meaning in ordinary life",
+          "connecting deeply without drama",
+          "discovering their own worth"
+        ],
+        "5": [
+          "realizing knowledge isn't enough",
+          "experiencing emotional breakthrough",
+          "finding strength in vulnerability"
+        ],
+        "6": [
+          "facing their worst fear",
+          "discovering inner strength",
+          "finding safety in uncertainty"
+        ],
+        "7": [
+          "confronting painful truth",
+          "finding joy in commitment",
+          "discovering depth in focus"
+        ],
+        "8": [
+          "experiencing the power of vulnerability",
+          "finding strength in surrender",
+          "protecting through gentleness"
+        ],
+        "9": [
+          "standing up for themselves",
+          "confronting necessary conflict",
+          "discovering their own voice"
+        ]
+      };
+
+      const speechPatterns = [
+        "Formal", "Sarcastic", "Poetic", "Casual", "Blunt", "Excitable", "Inquisitive", "Quiet", "Charming",
+        "Quick-witted", "Reflective", "Flamboyant", "Hesitant", "Authoritative", "Sympathetic"
+      ];
+
+      const bodyLanguages = [
+        "nervous ticks", "confident posture", "fidgeting", "stoic", "exaggerated gestures", "rigid movements",
+        "relaxed stance", "shifting eyes", "slouching", "crossed arms", "open body language", "pacing", "glancing around"
+      ];
+
+      const habits = [
+        "tapping foot", "biting lip", "talking fast", "pausing before speaking", "scratching head", "playing with hair",
+        "sighing deeply", "twisting fingers", "biting nails", "tapping a pen", "pacing back and forth", "adjusting glasses"
+      ];
+
+      const motivations = [
+        "love", "power", "control", "freedom", "security", "truth", "success", "connection", "understanding",
+        "knowledge", "purpose", "peace", "adventure", "justice", "autonomy"
+      ];
+
+      const flawResolutions = [
+        "learn to embrace their imperfection", "confront their fears", "develop a deeper sense of self-worth",
+        "connect with others in a meaningful way", "discover inner strength", "find a sense of purpose",
+        "develop patience", "learn to trust others", "find balance", "open up to vulnerability", "embrace change"
+      ];
+
+      const innerConflicts = [
+        "desires freedom but craves security",
+        "wants connection but fears vulnerability",
+        "seeks truth but comfortable with illusions",
+        "craves recognition but fears exposure",
+        "wants change but clings to familiarity",
+        "desires leadership but fears responsibility",
+        "seeks perfection but resists discipline",
+        "wants intimacy but maintains distance",
+        "craves peace but creates conflict"
+      ];
+
+      const copingMechanisms = {
+        "1": { "w9": "organizing and planning", "w2": "helping others" },
+        "2": { "w1": "overgiving", "w3": "achieving" },
+        "3": { "w2": "chameleon adaptation", "w4": "image crafting" },
+        "4": { "w3": "dramatic expression", "w5": "withdrawal" },
+        "5": { "w4": "intellectual analysis", "w6": "hoarding information" },
+        "6": { "w5": "seeking certainty", "w7": "planning escapes" },
+        "7": { "w6": "constant activity", "w8": "pursuing experiences" },
+        "8": { "w7": "controlling situations", "w9": "asserting dominance" },
+        "9": { "w8": "avoiding conflict", "w1": "routine-building" }
+      };
+
+      const childhoodWounds = {
+        "1": { "w9": "felt criticized for imperfection", "w2": "had to be the responsible one" },
+        "2": { "w1": "had to earn love through helping", "w3": "felt invisible unless achieving" },
+        "3": { "w2": "valued only for achievements", "w4": "pressured to maintain image" },
+        "4": { "w3": "felt misunderstood or different", "w5": "emotional needs were dismissed" },
+        "5": { "w4": "overwhelmed by emotional demands", "w6": "felt invaded or controlled" },
+        "6": { "w5": "lacked consistent support", "w7": "felt unsafe or unprotected" },
+        "7": { "w6": "experienced emotional pain", "w8": "felt restricted or limited" },
+        "8": { "w7": "had to be strong too early", "w9": "felt powerless or controlled" },
+        "9": { "w8": "felt overlooked or unimportant", "w1": "conflict was overwhelming" }
+      };
+
+      const tryFailCycles = {
+        "1": {
+          attempts: [
+            "tries to perfect every detail",
+            "attempts to reform everyone around them",
+            "strives to eliminate all mistakes"
+          ],
+          failures: [
+            "burns out from impossible standards",
+            "alienates others with criticism",
+            "becomes paralyzed by perfectionism"
+          ],
+          lessons: [
+            "learns that imperfection can be beautiful",
+            "discovers that growth requires acceptance",
+            "finds peace in letting go of control"
+          ]
+        },
+        "2": {
+          attempts: [
+            "tries to be indispensable to everyone",
+            "gives until completely depleted",
+            "takes responsibility for others' happiness"
+          ],
+          failures: [
+            "faces burnout and resentment",
+            "loses sense of personal boundaries",
+            "realizes help isn't always wanted"
+          ],
+          lessons: [
+            "learns to prioritize self-care",
+            "discovers the power of receiving",
+            "finds worth beyond helping others"
+          ]
+        },
+        "3": {
+          attempts: [
+            "pursues achievement at all costs",
+            "maintains a perfect image",
+            "competes in every situation"
+          ],
+          failures: [
+            "success feels hollow",
+            "authentic relationships suffer",
+            "loses touch with true self"
+          ],
+          lessons: [
+            "finds value beyond achievements",
+            "learns to be authentically vulnerable",
+            "discovers inner worth"
+          ]
+        },
+        "4": {
+          attempts: [
+            "seeks perfect understanding",
+            "chases intense experiences",
+            "tries to be uniquely special"
+          ],
+          failures: [
+            "becomes lost in melancholy",
+            "pushes people away with intensity",
+            "feels fundamentally flawed"
+          ],
+          lessons: [
+            "finds beauty in ordinary moments",
+            "learns to balance emotions",
+            "accepts connection without drama"
+          ]
+        },
+        "5": {
+          attempts: [
+            "accumulates knowledge endlessly",
+            "observes life from a distance",
+            "seeks complete self-sufficiency"
+          ],
+          failures: [
+            "knowledge doesn't equal wisdom",
+            "misses real-world experience",
+            "faces isolation's limitations"
+          ],
+          lessons: [
+            "learns to engage with life directly",
+            "discovers strength in connection",
+            "finds balance between mind and heart"
+          ]
+        },
+        "6": {
+          attempts: [
+            "prepares for every possibility",
+            "seeks absolute certainty",
+            "tests everyone's loyalty"
+          ],
+          failures: [
+            "anxiety increases with preparation",
+            "certainty remains elusive",
+            "pushes away support systems"
+          ],
+          lessons: [
+            "finds courage in uncertainty",
+            "learns to trust inner guidance",
+            "discovers strength in vulnerability"
+          ]
+        },
+        "7": {
+          attempts: [
+            "pursues endless new experiences",
+            "avoids all discomfort",
+            "keeps all options open"
+          ],
+          failures: [
+            "experiences feel superficial",
+            "pain catches up eventually",
+            "opportunities slip away"
+          ],
+          lessons: [
+            "finds depth in commitment",
+            "discovers growth through discomfort",
+            "learns the value of focus"
+          ]
+        },
+        "8": {
+          attempts: [
+            "controls every situation",
+            "shows no vulnerability",
+            "fights every battle"
+          ],
+          failures: [
+            "creates unnecessary conflicts",
+            "misses genuine connections",
+            "exhausts their resources"
+          ],
+          lessons: [
+            "finds strength in gentleness",
+            "learns the power of surrender",
+            "discovers peace in letting go"
+          ]
+        },
+        "9": {
+          attempts: [
+            "avoids all conflict",
+            "merges with others' desires",
+            "maintains false peace"
+          ],
+          failures: [
+            "loses sense of self",
+            "important needs go unmet",
+            "problems grow larger"
+          ],
+          lessons: [
+            "finds strength in assertiveness",
+            "learns to value their voice",
+            "discovers true inner peace"
+          ]
+        }
+      };
+
+      const values = [
+        "authenticity", "justice", "harmony", "wisdom", "courage", "loyalty",
+        "independence", "compassion", "excellence", "creativity", "stability", "growth"
+      ];
+
+      const stressResponses = {
+        "1": { "w9": "becomes rigid and judgmental", "w2": "becomes controlling and critical" },
+        "2": { "w1": "becomes needy and manipulative", "w3": "becomes demanding and emotional" },
+        "3": { "w2": "becomes competitive and hostile", "w4": "becomes withdrawn and depressed" },
+        "4": { "w3": "becomes self-destructive", "w5": "becomes isolated and cynical" },
+        "5": { "w4": "becomes arrogant and detached", "w6": "becomes paranoid and anxious" },
+        "6": { "w5": "becomes reactive and accusatory", "w7": "becomes reckless and scattered" },
+        "7": { "w6": "becomes impulsive and escapist", "w8": "becomes demanding and excessive" },
+        "8": { "w7": "becomes aggressive and confrontational", "w9": "becomes controlling and destructive" },
+        "9": { "w8": "becomes stubborn and disengaged", "w1": "becomes anxious and worried" }
+      };
+
+      // Randomly pick from each category
+      const name = names[Math.floor(Math.random() * names.length)];
+      const role = roles[Math.floor(Math.random() * roles.length)];
+      const type = Math.floor(Math.random() * types.length) + 1; // Random number between 1 and 9 (inclusive)
+      let wing;
+      // Adjusting wing logic to ensure it's one higher or one lower than the type
+      if (type === 1) {
+        wing = (Math.random() < 0.5 ? 2 : 9);
+      } else if (type === 9) {
+        wing = (Math.random() < 0.5 ? 1 : 8);
+      } else {
+        wing = type + (Math.random() < 0.5 ? -1 : 1); // Randomly pick either one less or one more
+      }
+
+      const desire = desires[type][`w${wing}`];
+      const fear = fears[type][`w${wing}`];
+
+      const flaw = flaws[Math.floor(Math.random() * flaws.length)];
+      const goal = goals[Math.floor(Math.random() * goals.length)];
+      const goalFinal = goals[Math.floor(Math.random() * goals.length)];
+      const growth = growths[type][Math.floor(Math.random() * growths[type].length)];
+      const turningPoint = turningPoints[type][Math.floor(Math.random() * turningPoints[type].length)];
+      const speech = speechPatterns[Math.floor(Math.random() * speechPatterns.length)];
+      const bodyLanguage = bodyLanguages[Math.floor(Math.random() * bodyLanguages.length)];
+      const habit = habits[Math.floor(Math.random() * habits.length)];
+      const motivation = motivations[Math.floor(Math.random() * motivations.length)];
+      const flawResolution = flawResolutions[Math.floor(Math.random() * flawResolutions.length)];
+
+      const innerConflict = innerConflicts[Math.floor(Math.random() * innerConflicts.length)];
+      const copingMechanism = copingMechanisms[type][`w${wing}`];
+      const childhoodWound = childhoodWounds[type][`w${wing}`];
+      const tryFailCycle = {
+        attempt: tryFailCycles[type].attempts[Math.floor(Math.random() * tryFailCycles[type].attempts.length)],
+        failure: tryFailCycles[type].failures[Math.floor(Math.random() * tryFailCycles[type].failures.length)],
+        lesson: tryFailCycles[type].lessons[Math.floor(Math.random() * tryFailCycles[type].lessons.length)]
+      };
+      const value = values[Math.floor(Math.random() * values.length)];
+      const stressResponse = stressResponses[type][`w${wing}`];
+
+      // Format the profile
+      const profile = `
+<div class="profile-item">
+    <div class="section-title">Basic Information</div>
+    <p><span>Name:</span> ${name}</p>
+    <p><span>Age/Role:</span> ${role}</p>
+    <p><span>Enneagram Type & Wing:</span> ${type} w${wing}</p>
+</div>
+
+<div class="profile-item">
+    <div class="section-title">Core Traits</div>
+    <p><span>Core Desire & Fear:</span> ${desire} & ${fear}</p>
+    <p><span>Core Value:</span> ${value}</p>
+</div>
+
+<div class="profile-item">
+    <div class="section-title">Inner World</div>
+    <p><span>Internal Conflict:</span> ${innerConflict}</p>
+    <p><span>Coping Mechanism:</span> ${copingMechanism}</p>
+    <p><span>Childhood Wound:</span> ${childhoodWound}</p>
+</div>
+
+<div class="profile-item">
+    <div class="section-title">Starting Point</div>
+    <p><span>Initial Flaw/Vice:</span> ${flaw}</p>
+    <p><span>Initial Goal:</span> ${goal}</p>
+</div>
+
+<div class="profile-item">
+    <div class="section-title">Try/Fail Cycle</div>
+    <p><span>Initial Attempt:</span> ${tryFailCycle.attempt}</p>
+    <p><span>Failure Point:</span> ${tryFailCycle.failure}</p>
+    <p><span>Key Lesson:</span> ${tryFailCycle.lesson}</p>
+</div>
+
+<div class="profile-item">
+    <div class="section-title">Character Arc</div>
+    <p><span>Growth Path:</span> ${growth}</p>
+    <p><span>Turning Point:</span> ${turningPoint}</p>
+</div>
+
+<div class="profile-item">
+    <div class="section-title">End Point</div>
+    <p><span>Final Goal:</span> ${goalFinal}</p>
+    <p><span>Resolution:</span> (They will ${flawResolution} to achieve their final goal.)</p>
+</div>
+
+<div class="profile-item">
+    <div class="section-title">Voice</div>
+    <p><span>Speech Patterns:</span> ${speech}</p>
+    <p><span>Body Language:</span> ${bodyLanguage}</p>
+    <p><span>Signature Habit or Phrase:</span> ${habit}</p>
+    <p><span>Under Stress:</span> ${stressResponse}</p>
+</div>
+
+<div class="profile-item">
+    <div class="section-title">Motivation</div>
+    <p><span>What drives them:</span> ${motivation}</p>
+</div>`;
+
+      // Display the generated profile
+      document.getElementById('profileOutput').innerHTML = profile;
+    }
+  </script>
+</body>
+
+</html>
